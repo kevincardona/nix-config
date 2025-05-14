@@ -26,8 +26,13 @@
       inherit overlays nixpkgs inputs;
     };
   in {
-    nixosConfigurations.nixos-nvidia-amd-config = mkSystem "nixos-nvidia-amd-config" {
-      system = "nixos-nvidia-amd-config";
+    nixosConfigurations.proart13 = mkSystem "proart13" {
+      system = "proart13";
+      user   = "kevincardona";
+    };
+
+    nixosConfigurations.vm-aarch64-utm = mkSystem "vm-aarch64-utm" {
+      system = "vm-aarch64-utm";
       user   = "kevincardona";
     };
   };

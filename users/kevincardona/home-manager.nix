@@ -15,15 +15,17 @@ in
   programs.home-manager.enable = true;
 
   imports = [
-    ./hyprland.nix
     (import ./tmux.nix { inherit config pkgs lib; dotfiles = inputs.dotfiles; })
     (import ./zsh.nix { inherit config pkgs lib; dotfiles = inputs.dotfiles; })
     (import ./nvim.nix { inherit config pkgs lib inputs; })
   ];
 
+  home.activation.ensureConfigDir = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    mkdir -p $HOME/.config
+  '';
+
   home.packages = with pkgs; [
     curl
-    discord
     fzf
     ghostty
     kitty
@@ -32,9 +34,7 @@ in
     jq
     nodejs
     ripgrep
-    spotify
     stow
-    tmux
     wget
     rsync
     prismlauncher
@@ -52,9 +52,9 @@ in
     wofi
     usbutils
     wl-clipboard
-    hyprland
     openrgb
     gnumake
+    mangohud
     (pkgs.writeShellScriptBin "prime-run" ''
       __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "$@"
     '')

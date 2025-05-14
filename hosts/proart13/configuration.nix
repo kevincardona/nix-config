@@ -7,8 +7,8 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware/x86_64-linux.nix
-      ./shared.nix
+      ./hardware-configuration.nix
+      ../shared/nixos.nix
     ];
 
   swapDevices = [
@@ -18,6 +18,10 @@
     }
   ];
 
+  programs.steam.enable = true;
+
+  networking.hostName = "nixos";
+
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -25,7 +29,7 @@
     nvidiaSettings = true;
 
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "570.144"; # or other working version
+      version = "570.144"; 
       sha256_64bit = "sha256-wLjX7PLiC4N2dnS6uP7k0TI9xVWAJ02Ok0Y16JVfO+Y=";
       openSha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC=";
       settingsSha256 = "sha256-6n9mVkEL39wJj5FB1HBml7TTJhNAhS/j5hqpNGFQE4w=";
@@ -80,7 +84,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

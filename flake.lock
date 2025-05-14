@@ -23,11 +23,11 @@
     },
     "dotfiles": {
       "locked": {
-        "lastModified": 1747175452,
-        "narHash": "sha256-TJjdQqinFlcEPPhHZlGhMbmom+ToBu15wFqbc1yZY18=",
+        "lastModified": 1747256203,
+        "narHash": "sha256-0QBUtSxAmsX8msdawH67J1OtyntlkaSTZwEZnOHFjSk=",
         "owner": "kevincardona",
         "repo": ".dotfiles",
-        "rev": "80e02932eadc62d36847fb06882a011ce62f7ad1",
+        "rev": "c174de3d29b81e95fa24d95e165367f8d033f655",
         "type": "github"
       },
       "original": {

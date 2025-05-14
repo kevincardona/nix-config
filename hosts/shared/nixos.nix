@@ -8,7 +8,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable networking
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  
 
@@ -21,7 +20,7 @@
 
   services.tailscale.enable = true;
 
-  programs.steam.enable = true;
+
   programs.firefox.enable = true;
 
   # Set your time zone.
@@ -63,16 +62,17 @@
   # services.displayManager.ly.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  programs.hyprland.enable = true; # enable Hyprland
-
   environment.systemPackages = [
     # ... other packages
     pkgs.kitty # required for the default Hyprland config
   ];
 
+  environment.shells = with pkgs; [ zsh ];
+  programs.zsh.enable = true;
+
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "kevincardona";
+  # services.displayManager.autoLogin.enable = true;
+  # services.displayManager.autoLogin.user = "kevincardona";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

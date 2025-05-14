@@ -4,18 +4,13 @@ let
   tmuxConfig = dotfiles.tmux;
 in
 {
-  home.file.".tmux.conf".source = "${tmuxConfig}/.tmux.conf";
+  programs.tmux.enable = false;
 
-  home.activation.installTPM = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export TPM="$HOME/.tmux/plugins/tpm"
+  home.packages = [
+    pkgs.tmux
+  ];
 
-    if [ ! -d "$TPM" ]; then
-      echo "Installing TPM..."
-      ${pkgs.git}/bin/git clone --depth=1 https://github.com/tmux-plugins/tpm.git "$TPM"
-    fi
-  '';
-
-  programs.tmux.enable = true;
+  home.file.".config/tmux/tmux.conf".source = "${tmuxConfig}/tmux.conf";
 }
 
 

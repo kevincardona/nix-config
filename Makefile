@@ -1,5 +1,5 @@
-HOST ?= nixos-nvidia-amd-config
-FLAKE_DIR ?= $(HOME)/nixos-configs
+HOST ?= proart13
+FLAKE_DIR ?= $(HOME)/nix-config
 
 .PHONY: update switch clean-generations clean-boot full-clean
 
