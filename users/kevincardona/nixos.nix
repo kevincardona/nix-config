@@ -3,6 +3,7 @@
   users.users.kevincardona = {
     isNormalUser = true;
     shell = pkgs.zsh;
+    home = "/home/kevincardona";
     description = "Kevin Cardona";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [

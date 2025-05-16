@@ -2,19 +2,26 @@
 
 let
   nvimConfig = inputs.nvim;
-in {
-  home.activation.copyNvimConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+in
+{
+  home.activation.copyNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     echo "Copying Neovim config from flake..."
     rm -rf $HOME/.config/nvim
     cp -r --no-preserve=mode,ownership ${nvimConfig} $HOME/.config/nvim
   '';
 
-  programs.neovim.enable = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
 
   home.packages = with pkgs; [
-    rustc
+    fzf
+    ripgrep
+    nodejs_22
     cargo
-    nodejs
   ];
 }
 

@@ -13,5 +13,3 @@ in
   home.file.".config/tmux/tmux.conf".source = "${tmuxConfig}/tmux.conf";
 }
 
-
-

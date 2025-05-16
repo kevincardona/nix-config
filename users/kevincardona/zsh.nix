@@ -8,6 +8,12 @@ in
   home.file.".zsh_aliases".source = "${zshConfig}/.zsh_aliases";
   home.file.".zsh_functions".source = "${zshConfig}/.zsh_functions";
 
+  # Add Nix paths to zshenv
+  home.file.".zshenv".text = ''
+    # Ensure Nix paths are in PATH
+    export PATH=$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH
+  '';
+
   home.activation.installOhMyZsh = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export ZSH="$HOME/.oh-my-zsh"
     PLUGIN_DIR="$ZSH/custom/plugins"
@@ -31,6 +37,5 @@ in
   '';
 
   programs.zsh.enable = true;
-
 }
 
