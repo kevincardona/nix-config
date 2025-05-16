@@ -49,15 +49,17 @@ in
     nodejs
     openrgb
     pciutils
+    rofi
     usbutils
     vscode
     wl-clipboard
     wofi
+    xremap
     (pkgs.writeShellScriptBin "prime-run" ''
       __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "$@"
     '')
   ]);
 
-  # services.swaync.enable = true;
+
 }
 

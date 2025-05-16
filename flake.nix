@@ -2,20 +2,19 @@
   description = "Basic NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # Option 1: Both on unstable (recommended for latest features)
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nvim.url = "github:kevincardona/nvim?ref=main";
     dotfiles.url = "github:kevincardona/.dotfiles?ref=main";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

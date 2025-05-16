@@ -23,6 +23,14 @@
 
   programs.firefox.enable = true;
 
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+    package = pkgs.openrgb-with-all-plugins; # enable all plugins
+  };
+  environment.systemPackages = [ pkgs.i2c-tools ];
+  users.groups.i2c.members = [ "kevincardona" ];
+
   # Set your time zone.
   time.timeZone = "America/Denver";
 
@@ -62,17 +70,12 @@
   # services.displayManager.ly.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  environment.systemPackages = [
-    # ... other packages
-    pkgs.kitty # required for the default Hyprland config
-  ];
-
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
 
   # Enable automatic login for the user.
-  # services.displayManager.autoLogin.enable = true;
-  # services.displayManager.autoLogin.user = "kevincardona";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "kevincardona";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -96,5 +99,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
 

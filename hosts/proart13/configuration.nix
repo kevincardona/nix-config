@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
       ../shared/nixos.nix
     ];
+  
+  boot.kernelParams = ["resume_offset=84408320"];
+
+  boot.resumeDevice = "/dev/disk/by-uuid/2dd98905-1379-4bcc-9d62-8f809bf21268";
 
   swapDevices = [
     {
@@ -27,14 +31,6 @@
     powerManagement.enable = false;
     open = false;  # or true, if you want the open kernel module and your GPU supports it
     nvidiaSettings = true;
-
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "570.144"; 
-      sha256_64bit = "sha256-wLjX7PLiC4N2dnS6uP7k0TI9xVWAJ02Ok0Y16JVfO+Y=";
-      openSha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC=";
-      settingsSha256 = "sha256-6n9mVkEL39wJj5FB1HBml7TTJhNAhS/j5hqpNGFQE4w=";
-      persistencedSha256 =  "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD=";
-    };
 
     prime = {
       offload.enable = true;
@@ -76,7 +72,7 @@
   hardware.enableAllFirmware = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -85,7 +81,7 @@
     pulse.enable = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
 }
 
 
