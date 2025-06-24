@@ -2,6 +2,7 @@
 
 let
   tmuxConfig = dotfiles.tmux;
+  scriptsDir = dotfiles.scripts;
 in
 {
   # We will manually manage tmux configs
@@ -11,6 +12,7 @@ in
     pkgs.tmux
   ];
 
+  home.file.".local/bin/tmux-sessionizer".source = "${scriptsDir}/.local/bin/tmux-sessionizer";
   home.file.".config/tmux/tmux.conf".source = "${tmuxConfig}/tmux.conf";
 }
 

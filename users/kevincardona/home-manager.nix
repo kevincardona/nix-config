@@ -46,13 +46,15 @@ in
     kitty
     mangohud
     networkmanager
-    nodejs
     openrgb
     pciutils
     rofi
     usbutils
     vscode
     wl-clipboard
+    discord
+    plex
+    spotify
     wofi
     xremap
     (pkgs.writeShellScriptBin "prime-run" ''

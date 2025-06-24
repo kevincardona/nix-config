@@ -32,6 +32,11 @@
         user = "kevincardona";
       };
 
+      nixosConfigurations.mango = mkSystem "mango" {
+        system = "mango";
+        user = "kevincardona";
+      };
+
       nixosConfigurations.vm-aarch64-utm = mkSystem "vm-aarch64-utm" {
         system = "vm-aarch64-utm";
         user = "kevincardona";
