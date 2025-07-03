@@ -24,6 +24,7 @@ in
   '';
 
   home.packages = with pkgs; [
+    eza
     curl
     fzf
     git
@@ -35,6 +36,8 @@ in
     wget
     rsync
     go
+    pnpm
+    rustup
   ] ++ (lib.optionals isDarwin [
     tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [

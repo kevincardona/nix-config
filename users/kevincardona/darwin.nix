@@ -14,6 +14,8 @@
     ];
     masApps = {
       # "WireGuard" = 1451685025;
+      "Bitwarden" = 1352778147;
+      "WhatsApp Messenger" = 310633997;
     };
     casks = [
       "ollama"
@@ -31,12 +33,10 @@
       "postman"
       "rancher"
       "rectangle"
-      "rustdesk"
       "spotify"
       "tailscale"
       "visual-studio-code"
-      "zen"
-      "brave-browser"
+      "firefox@developer-edition"
     ];
   };
 }

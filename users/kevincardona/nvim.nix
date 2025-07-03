@@ -20,8 +20,7 @@ in
   home.packages = with pkgs; [
     fzf
     ripgrep
-    nodejs_20  # Using a specific version that should have better binary cache support
-    cargo
+    nodejs
   ];
 }
 

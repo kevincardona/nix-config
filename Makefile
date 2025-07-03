@@ -9,7 +9,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	REBUILD_CMD = sudo nixos-rebuild
 else ifeq ($(UNAME_S),Darwin)
-	REBUILD_CMD = darwin-rebuild
+	REBUILD_CMD = sudo darwin-rebuild
 else
 	$(error Unsupported OS: $(UNAME_S))
 endif
