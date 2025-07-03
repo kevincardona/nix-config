@@ -27,7 +27,6 @@ in
     curl
     fzf
     git
-    git
     htop
     jq
     ripgrep
@@ -35,6 +34,7 @@ in
     vim
     wget
     rsync
+    go
   ] ++ (lib.optionals isDarwin [
     tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [

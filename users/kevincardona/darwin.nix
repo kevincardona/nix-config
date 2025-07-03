@@ -1,12 +1,16 @@
 { inputs, pkgs, ... }: {
-   users.users.kevincardona = {
+
+  system.primaryUser = "kevincardona";
+
+  users.users.kevincardona = {
     home = "/Users/kevincardona";
     shell = pkgs.zsh;
   };
 
   homebrew = {
     enable = true;
-    casks  = [
+    casks = [
+      "lunar"
       "discord"
       "google-chrome"
       "karabiner-elements"
@@ -16,6 +20,7 @@
       "tailscale"
       "visual-studio-code"
       "zen"
+      "brave-browser"
     ];
   };
 }
