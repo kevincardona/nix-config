@@ -9,13 +9,29 @@
 
   homebrew = {
     enable = true;
+    brews = [
+      "mas"
+    ];
+    masApps = {
+      # "WireGuard" = 1451685025;
+    };
     casks = [
-      "lunar"
+      "ollama"
+      "ultimaker-cura"
+      "balenaetcher"
+      "raspberry-pi-imager"
       "discord"
+      "godot"
       "google-chrome"
+      "flutter"
       "karabiner-elements"
+      "lunar"
+      "nordvpn"
       "plex"
-      "raycast"
+      "postman"
+      "rancher"
+      "rectangle"
+      "rustdesk"
       "spotify"
       "tailscale"
       "visual-studio-code"
@@ -24,3 +40,4 @@
     ];
   };
 }
+
