@@ -21,7 +21,7 @@
   services.tailscale.enable = true;
 
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   services.hardware.openrgb = {
     enable = true;
@@ -60,7 +60,17 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = true;
+      X11DisplayOffset = 10;
+      X11UseLocalhost = false;
+    };
+  };
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startplasma-x11";
 
   # Enable flatpaks
   services.flatpak.enable = true;
@@ -87,8 +97,9 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 3389 27037 27036 ];
+  networking.firewall.allowedUDPPorts = [ 10400 10401 ];
+  networking.firewall.allowedUDPPortRanges = [{ from = 27031; to = 27036; }];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

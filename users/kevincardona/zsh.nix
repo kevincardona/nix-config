@@ -10,8 +10,8 @@ in
 
   # Add Nix paths to zshenv
   home.file.".zshenv".text = ''
-    # Ensure Nix paths are in PATH
-    export PATH=$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH
+    # Ensure Nix paths are in PATH with proper order (wrappers first for setuid binaries)
+    export PATH=/run/wrappers/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH
   '';
 
   home.activation.installOhMyZsh = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -36,6 +36,6 @@ in
       ${pkgs.git}/bin/git clone https://github.com/zsh-users/zsh-completions "$PLUGIN_DIR/zsh-completions"
   '';
 
-  programs.zsh.enable = true;
+  # programs.zsh.enable = true;
 }
 

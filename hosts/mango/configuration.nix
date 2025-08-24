@@ -1,100 +1,131 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../shared/nixos.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../shared/nixos.nix
+  ];
 
-  programs.steam.enable = true;
+  networking.hostName = "mango";
+
+  # Hyprland (Wayland)
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
-  networking.hostName = "mango";
+  # Steam gaming
+  programs.steam.enable = true;
 
+  # NVIDIA + AMD GPU Prime setup
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+
+    # Modesetting is required.
     modesetting.enable = true;
+
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    # Enable this if you have graphical corruption issues or application crashes after waking
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # of just the bare essentials.
     powerManagement.enable = false;
-    open = false; # or true, if you want the open kernel module and your GPU supports it
+
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    open = false;
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    prime = {
-      offload.enable = true;
-      sync.enable = false;
-
-      # Bus ID of the AMD GPU. You can find it using lspci, either under 3D or VGA
-      amdgpuBusId = "PCI:6:00:0";
-
-      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-      nvidiaBusId = "PCI:1:00:0";
-    };
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-
+  # Updated graphics setup
   hardware.graphics = {
     enable = true;
+    enable32Bit = true; # replaces old driSupport32Bit
     extraPackages = with pkgs; [
-      mesa.drivers
+      mesa
       vulkan-loader
       vulkan-validation-layers
       vulkan-extension-layer
+      mangohud
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [
-      mesa.drivers
+      mesa
       vulkan-loader
       vulkan-validation-layers
+      mangohud
     ];
   };
 
-  environment.systemPackages = [
-    pkgs.dunst
-    pkgs.libnotify
-    pkgs.rofi-wayland
-    pkgs.waybar
-    pkgs.networkmanagerapplet
-  ];
+  # Enable X11 (if needed)
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" "amdgpu" ];
+  };
 
-  xdg.portal.enable = true;
+  # Firmware
+  hardware.enableAllFirmware = true;
 
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Enable NoiseTorch for noise suppression
+  programs.noisetorch.enable = true;
+
+  # Disable pulseaudio (using PipeWire)
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+
+  # Enable PipeWire
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  # Environment variables (forced to avoid duplicates)
   environment.sessionVariables = {
-    LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
+    LD_LIBRARY_PATH = lib.mkForce (lib.concatStringsSep ":" [
+      "/run/opengl-driver/lib"
+      "/run/opengl-driver-32/lib"
+      "${pkgs.pipewire}/lib"
+      "${pkgs.pipewire}/lib/pipewire-0.3/jack"
+    ]);
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
 
-  hardware = {
-    opengl.enable = true;
-  };
+  # System packages you want available globally
+  environment.systemPackages = with pkgs; [
+    dunst
+    libnotify
+    rofi
+    waybar
+    networkmanagerapplet
+    cifs-utils
+    rnnoise
+    rnnoise-plugin
+    ladspaPlugins
+    pavucontrol
+    helvum
+    noisetorch
+  ];
 
-  services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  hardware.enableAllFirmware = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  security.sudo.enable = true;
+  xdg.portal.enable = true;
 }
 
