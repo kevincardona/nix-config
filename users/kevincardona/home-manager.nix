@@ -53,7 +53,6 @@ in
     vscode
     wl-clipboard
     discord
-    plex
     spotify
     wofi
     xremap
