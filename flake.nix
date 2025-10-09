@@ -24,7 +24,7 @@
       overlays = [ ];
       mkSystem = import ./lib/mksystem.nix {
         inherit overlays nixpkgs inputs;
-      };
+        };
     in
     {
       nixosConfigurations.proart13 = mkSystem "proart13" {

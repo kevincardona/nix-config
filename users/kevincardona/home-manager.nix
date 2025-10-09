@@ -38,6 +38,7 @@ in
   ] ++ (lib.optionals isDarwin [
     tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
+    godot
     fastfetch
     firefox-devedition
     gcc

@@ -97,9 +97,59 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 3389 27037 27036 ];
-  networking.firewall.allowedUDPPorts = [ 10400 10401 ];
-  networking.firewall.allowedUDPPortRanges = [{ from = 27031; to = 27036; }];
+  networking.firewall = {
+    enable = true;
+
+    allowedTCPPorts = [
+      # Steam client, remote play control
+      27015
+      27016
+      27017
+      27018
+      27019
+      27020
+      27021
+      27022
+      27023
+      27024
+      27025
+      27026
+      27027
+      27028
+      27029
+      27030
+      27036
+      27037
+    ];
+
+    allowedUDPPorts = [
+      # Core Steam / Steam Link / SteamVR
+      4380
+      47984
+      47985
+      47986
+      47987
+      47988
+      47989
+      47990
+      48010
+      9943
+      9944
+      9757
+      9000
+      9001
+      9002
+      9003
+      10400
+      10401
+      21111
+    ];
+
+    allowedUDPPortRanges = [
+      # Matchmaking / Game / VR traffic
+      { from = 27000; to = 27100; }
+    ];
+  };
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
