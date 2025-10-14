@@ -11,6 +11,11 @@
     enable = true;
     brews = [
       "mas"
+      "ffmpeg"
+      "colima"
+      "docker"
+      "docker-buildx"
+      "docker-compose"
     ];
     masApps = {
       # "WireGuard" = 1451685025;
@@ -18,26 +23,29 @@
       "WhatsApp Messenger" = 310633997;
     };
     casks = [
-      "ollama"
-      "ultimaker-cura"
-      "balenaetcher"
-      "raspberry-pi-imager"
+      "altserver"
+      "blender"
       "discord"
-      "godot"
+      "firefox@developer-edition"
+      "godot-mono"
       "google-chrome"
-      "flutter"
       "karabiner-elements"
       "lunar"
+      "microsoft-remote-desktop"
       "nordvpn"
+      "ollama"
       "plex"
       "postman"
-      "rancher"
+      "raspberry-pi-imager"
       "rectangle"
       "spotify"
       "tailscale"
       "visual-studio-code"
-      "firefox@developer-edition"
     ];
+  };
+
+  environment.variables = {
+    DOCKER_HOST = "unix:/Users/kevincardona/.colima/default/docker.sock";
   };
 }
 
