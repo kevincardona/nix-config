@@ -38,25 +38,26 @@ in
   ] ++ (lib.optionals isDarwin [
     tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
-    godot
+    discord
     fastfetch
     firefox-devedition
     gcc
     ghostty
     gnumake
+    godot
     kitty
     networkmanager
     openrgb
     pciutils
     rofi
+    rpi-imager
+    spotify
     usbutils
     vscode
     wl-clipboard
-    discord
-    spotify
     wofi
     xremap
-    rpi-imager
+    (btop.override { rocmSupport = true; cudaSupport = true; })
     (pkgs.writeShellScriptBin "prime-run" ''
       __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "$@"
     '')
