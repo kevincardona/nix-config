@@ -24,7 +24,7 @@
 
   programs.steam.enable = true;
 
-  networking.hostName = "nixos";
+  networking.hostName = "proart13";
 
   hardware.nvidia = {
     modesetting.enable = true;

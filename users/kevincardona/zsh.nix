@@ -35,7 +35,6 @@ in
     [ ! -d "$PLUGIN_DIR/zsh-completions" ] && \
       ${pkgs.git}/bin/git clone https://github.com/zsh-users/zsh-completions "$PLUGIN_DIR/zsh-completions"
   '';
-
   # programs.zsh.enable = true;
 }
 

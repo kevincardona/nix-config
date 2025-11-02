@@ -50,7 +50,6 @@ in
     openrgb
     pciutils
     rofi
-    rpi-imager
     spotify
     usbutils
     vscode
